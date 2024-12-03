@@ -1,0 +1,2 @@
+org.springframework.test.context.ContextCustomizerFactory = de.moges.test.\
+    jenkins.config.SqlTestContainersSpringContextCustomizerFactory

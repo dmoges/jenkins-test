@@ -50,6 +50,8 @@ public class CacheConfiguration {
             createCache(cm, de.moges.test.jenkins.domain.User.class.getName());
             createCache(cm, de.moges.test.jenkins.domain.Authority.class.getName());
             createCache(cm, de.moges.test.jenkins.domain.User.class.getName() + ".authorities");
+            createCache(cm, de.moges.test.jenkins.domain.Professor.class.getName());
+            createCache(cm, de.moges.test.jenkins.domain.Speciality.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }

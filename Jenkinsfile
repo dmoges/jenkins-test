@@ -1,15 +1,10 @@
 pipeline {
     agent any
 
-    tools{
-        jdk 'jdk17'
-        maven 'maven3'
-    }
-
     stages {
-        stage('Code Checkout') {
+        stage('Which Java?') {
             steps {
-                git branch: 'main', changelog: false, poll: false, url: 'https://github.com/dmoges/jenkins-test'
+                sh 'java --version'
             }
         }
     }

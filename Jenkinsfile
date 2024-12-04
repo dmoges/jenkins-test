@@ -10,6 +10,7 @@ pipeline {
         stage('Which Java?') {
             steps {
                 sh 'java --version'
+                sh 'maven --version'
             }
         }
     }

@@ -18,5 +18,12 @@ pipeline {
                 git branch: 'main', changelog: false, poll: false, url: 'https://github.com/dmoges/jenkins-test'
             }
         }
+
+        stage('OWASP Dependency Check'){
+            steps{
+                dependencyCheck additionalArguments: '--scan ./ --format HTML ', odcInstallation: 'db-check'
+                dependencyCheckPublisher pattern: '**/dependency-check-report.xml'
+            }
+        }
     }
 }

@@ -36,7 +36,7 @@ pipeline {
                 scannerHome = tool 'spring-boot-app-test';
             }
             steps {
-              withSonarQubeEnv(credentialsId: 'a token for a spring boot application used for CI/CD testing', installationName: 'SonarQube') {
+              withSonarQubeEnv(credentialsId: 'token-spring-boot-app', installationName: 'SonarQube') {
                 sh "${scannerHome}/bin/sonar-scanner"
               }
             }

@@ -56,7 +56,7 @@ pipeline {
             }
             steps {
               withSonarQubeEnv(credentialsId: 'token-spring-boot-app', installationName: 'SonarQube') {
-                sh 'mvn sonar:sonar'
+                sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.11.0.3922:sonar'
               }
             }
         }

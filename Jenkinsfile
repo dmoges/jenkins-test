@@ -37,7 +37,7 @@ pipeline {
             }
             steps {
               withSonarQubeEnv(credentialsId: 'token-spring-boot-app', installationName: 'SonarQube') {
-                sh "${scannerHome}/bin/sonar-scanner"
+                sh 'mvn sonar:sonar'
               }
             }
         }

@@ -15,7 +15,7 @@ pipeline {
 
         stage('Which Maven?') {
             steps {
-                sh 'mvn --version'
+                mvn --version
             }
         }
 

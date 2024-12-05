@@ -33,7 +33,7 @@ pipeline {
         // run sonarqube test
         stage('Run Sonarqube') {
             environment {
-                scannerHome = tool 'SonarQube';
+                scannerHome = tool 'spring-boot-app-test';
             }
             steps {
               withSonarQubeEnv(credentialsId: 'a token for a spring boot application used for CI/CD testing', installationName: 'SonarQube') {

@@ -52,13 +52,26 @@ pipeline {
               }
           }
             environment {
-                scannerHome = tool 'spring-boot-app-test';
+                SCANNER_HOME = tool 'spring-boot-app-test';
             }
+
+            //steps {
+            //  withSonarQubeEnv(credentialsId: 'token-spring-boot-app', installationName: 'SonarQube') {
+            //    sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.11.0.3922:sonar'
+            //  }
+            //}
+
             steps {
-              withSonarQubeEnv(credentialsId: 'token-spring-boot-app', installationName: 'SonarQube') {
-                sh 'mvn org.sonarsource.scanner.maven:sonar-maven-plugin:3.11.0.3922:sonar'
-              }
+                withSonarQubeEnv(credentialsId: 'token-spring-boot-app', installationName: 'SonarQube') {
+                    sh '''
+                        $SCANNER_HOME/bin/sonar-scanner \
+                        -Dsonar.projectKey=EKART \
+                        -Dsonar.projectName=EKART \
+                        -Dsonar.java.binaries=./target
+                    '''
+                }
             }
+
         }
     }
 }

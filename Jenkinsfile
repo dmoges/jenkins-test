@@ -13,6 +13,12 @@ pipeline {
             }
         }
 
+        stage('Which Maven?') {
+            steps {
+                sh 'mvn --version'
+            }
+        }
+
         stage('Code Checkout') {
             steps {
                 git branch: 'main', changelog: false, poll: false, url: 'https://github.com/dmoges/jenkins-test'

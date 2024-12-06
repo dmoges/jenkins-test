@@ -43,6 +43,13 @@ pipeline {
        // }
 
         stage('Static Code Analysis') {
+          agent {
+              docker {
+                  image 'maven:3.9.5-eclipse-temurin-17-alpine'
+                  reuseNode true
+                  args '-v /root/.m2:/root/.m2'
+              }
+          }
           environment {
             SONAR_URL = "http://192.168.1.10:9001"
           }

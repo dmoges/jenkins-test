@@ -6,15 +6,7 @@ pipeline {
         maven 'maven3'
     }
 
-
-
     stages {
-        stage('Which Java?') {
-            steps {
-                sh 'java --version'
-            }
-        }
-
         stage('check tools') {
           agent {
               docker {

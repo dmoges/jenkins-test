@@ -42,18 +42,30 @@ pipeline {
        //     }
        // }
 
-        // run sonarqube test
-        stage('Run Sonarqube') {
-          agent {
-              docker {
-                  image 'maven:3.9.5-eclipse-temurin-17-alpine'
-                  args '-v /root/.m2:/root/.m2'
-                  reuseNode true
-              }
+        stage('Static Code Analysis') {
+          environment {
+            SONAR_URL = "http://192.168.1.10:9001"
           }
-            environment {
-                SCANNER_HOME = tool 'spring-boot-app-test';
+          steps {
+            withCredentials([string(credentialsId: 'token-spring-boot-app', variable: 'SONAR_AUTH_TOKEN')]) {
+              sh 'echo "sonar token - $SONAR_AUTH_TOKEN"'
+              sh 'cd demo-java-app && mvn sonar:sonar -Dsonar.login=$SONAR_AUTH_TOKEN -Dsonar.host.url=${SONAR_URL}'
             }
+          }
+        }
+
+        // run sonarqube test
+        //stage('Run Sonarqube') {
+        //  agent {
+        //      docker {
+        //          image 'maven:3.9.5-eclipse-temurin-17-alpine'
+        //          args '-v /root/.m2:/root/.m2'
+        //          reuseNode true
+        //      }
+        //  }
+        //    environment {
+        //        SCANNER_HOME = tool 'spring-boot-app-test';
+        //    }
 
             //steps {
             //  withSonarQubeEnv(credentialsId: 'token-spring-boot-app', installationName: 'SonarQube') {
@@ -61,16 +73,16 @@ pipeline {
             //  }
             //}
 
-            steps {
-                withSonarQubeEnv(credentialsId: 'token-spring-boot-app', installationName: 'SonarQube') {
-                    sh '''
-                        $SCANNER_HOME/bin/sonar-scanner \
-                        -Dsonar.projectKey=EKART \
-                        -Dsonar.projectName=EKART \
-                        -Dsonar.java.binaries=./target
-                    '''
-                }
-            }
+          //  steps {
+          //      withSonarQubeEnv(credentialsId: 'token-spring-boot-app', installationName: 'SonarQube') {
+          //          sh '''
+          //              $SCANNER_HOME/bin/sonar-scanner \
+          //              -Dsonar.projectKey=EKART \
+          //              -Dsonar.projectName=EKART \
+          //              -Dsonar.java.binaries=./target
+          //          '''
+          //      }
+          //  }
 
         }
     }

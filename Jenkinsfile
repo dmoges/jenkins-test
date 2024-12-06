@@ -42,6 +42,22 @@ pipeline {
        //     }
        // }
 
+
+        stage('Build and Test') {
+          agent {
+              docker {
+                  image 'maven:3.9.5-eclipse-temurin-17-alpine'
+                  reuseNode true
+                  args '-v /root/.m2:/root/.m2'
+              }
+          }
+          steps {
+            sh 'ls -ltr'
+            // build the project and create a JAR file
+            sh 'mvn clean package'
+          }
+        }
+
         stage('Static Code Analysis') {
           agent {
               docker {

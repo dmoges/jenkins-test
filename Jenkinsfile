@@ -6,6 +6,8 @@ pipeline {
         maven 'maven3'
     }
 
+
+
     stages {
         stage('Which Java?') {
             steps {
@@ -13,7 +15,7 @@ pipeline {
             }
         }
 
-        stage('Which Maven?') {
+        stage('check tools') {
           agent {
               docker {
                   image 'maven:3.9.5-eclipse-temurin-17-alpine'
@@ -21,7 +23,10 @@ pipeline {
               }
           }
           steps {
-              sh 'mvn --version'
+              sh '''
+                  mvn --version
+                  java --version
+                '''
           }
         }
 
@@ -42,6 +47,9 @@ pipeline {
        //     }
        // }
 
+        stage('npm install') {
+            sh "npm install"
+        }
 
         stage('Build and Test') {
           agent {
@@ -53,7 +61,7 @@ pipeline {
           steps {
             sh 'ls -ltr'
             // build the project and create a JAR file
-            sh 'mvn clean package'
+            sh './mvnw clean package'
           }
         }
 

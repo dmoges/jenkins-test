@@ -49,7 +49,7 @@ pipeline {
           steps {
             withCredentials([string(credentialsId: 'token-spring-boot-app', variable: 'SONAR_AUTH_TOKEN')]) {
               sh 'echo "sonar token - $SONAR_AUTH_TOKEN"'
-              sh 'cd demo-java-app && mvn sonar:sonar -Dsonar.login=$SONAR_AUTH_TOKEN -Dsonar.host.url=${SONAR_URL}'
+              sh 'mvn sonar:sonar -Dsonar.login=$SONAR_AUTH_TOKEN -Dsonar.host.url=${SONAR_URL}'
             }
           }
         }

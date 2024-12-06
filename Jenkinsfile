@@ -60,9 +60,11 @@ pipeline {
               }
           }
           steps {
-            sh 'ls -ltr'
+            sh '''
+              ls -ltr
             // build the project and create a JAR file
-            sh './mvnw clean package'
+             ./mvnw clean package
+            '''
           }
         }
 

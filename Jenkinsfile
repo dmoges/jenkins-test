@@ -53,7 +53,7 @@ pipeline {
           steps {
             sh 'ls -ltr'
             // build the project and create a JAR file
-            sh './mvnw clean package'
+            sh 'mvn clean package'
           }
         }
 
